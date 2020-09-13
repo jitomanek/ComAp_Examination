@@ -133,26 +133,30 @@ namespace Examination
 
         private static void ProccesSave(string[] parts)
         {
-            if (CheckMultipleCommand<Formats>(parts))
-            {
-                if (ParserSelector == null)
-                    ParserSelector = new ParserSelector();
+            if (ParserSelector == null)
+                ParserSelector = new ParserSelector();
 
-                if (Enum.TryParse(parts[1], out Formats action))
-                {
-                    var message = ParserSelector.ParseToFile(action, Cache.GetInstance().GetGroups(), Cache.GetInstance().GetParseErrors());
-                    Program.PrintMessage(message);
-                }
-                else
-                {
-                    Console.WriteLine($"Format:{parts[1]} unknown, supported formats:{GetEnumValues<Formats>()}");
-                }
+            if (parts.Length == 1)
+            {
+                var message = ParserSelector.ParseToFile(Formats.xml, Cache.GetInstance().GetGroups(), Cache.GetInstance().GetParseErrors());
+                Program.PrintMessage(message);
+                return;
             }
+            else if (Enum.TryParse(parts[1], out Formats action))
+            {
+                var message = ParserSelector.ParseToFile(action, Cache.GetInstance().GetGroups(), Cache.GetInstance().GetParseErrors());
+                Program.PrintMessage(message);
+            }
+            else
+            {
+                Console.WriteLine($"Format:{parts[1]} unknown, supported formats:{GetEnumValues<Formats>()}");
+            }
+
         }
 
-        private static bool CheckMultipleCommand<T>(string[] parts) where T : Enum
+        private static bool CheckMultipleCommand<T>(string[] parts, int partsCount = 2) where T : Enum
         {
-            if (parts.Length < 2)
+            if (parts.Length < partsCount)
             {
                 Console.WriteLine("Command does not contain any action.");
                 return false;
