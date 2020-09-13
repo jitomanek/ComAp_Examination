@@ -35,7 +35,7 @@ namespace Examination
                 while (!String.IsNullOrEmpty(command))
                 {
                     command = Console.ReadLine();
-                    CommandLineInterface.ProccesCommand(command);
+                    CommandLineInterface.ProccesCommand(command, configurationModel);
                 }
 
             }
