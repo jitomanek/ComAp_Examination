@@ -174,8 +174,8 @@ namespace Examination
         private static void ProccessHelp()
         {
             Console.WriteLine("For student weight average type: get student <studentFullName>");
-            Console.WriteLine("For subject statistic type: get subject <subjectName> [<groupName>:optional]");
-            Console.WriteLine("For file write type: save <fileFormat[json/xml]>");
+            Console.WriteLine("For subjects statistics type: get subject [group]");
+            Console.WriteLine("For file write type: save [json/xml]");
         }
 
         private static string GetEnumValues<T>() where T : Enum
